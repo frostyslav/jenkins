@@ -6,10 +6,16 @@ pipeline {
     NGX_VER="1.13.10"
     NGX_LUA_VER="0.10.11"
   }
-  agent any
+  agent none
 
   stages {
     stage('Build'){
+      agent {
+        docker { image 'ubuntu:16.04'
+                 args '-v /tmp/:$WORKDIR'
+        }
+      }
+
       steps {
       sh '''
       sudo apt update && sudo apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
