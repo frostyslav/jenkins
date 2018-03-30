@@ -11,7 +11,7 @@ pipeline {
     stage('Build'){
       agent {
         docker { image 'ubuntu:16.04'
-                 args '-u root:sudo -v /tmp/:/root/deb'
+                 args '-u root:sudo -v /tmp/:/root/debfile/'
         }
       }
 
@@ -25,7 +25,7 @@ pipeline {
       make
       make install
       cd /root
-      $pwd
+
       wget https://github.com/simplresty/ngx_devel_kit/archive/v${NDK_VER}.tar.gz
       tar xvf v${NDK_VER}.tar.gz
       ls -alt  /root/ngx_devel_kit-0.3.0/config
@@ -45,8 +45,8 @@ pipeline {
                --add-module=/root/lua-nginx-module-0.10.11
 
       checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
-      mkdir /root/deb
-      cp nginx_${NGX_VER}-1_amd64.deb /root/deb/
+      mkdir /root/debfile
+      cp nginx_${NGX_VER}-1_amd64.deb /root/debfile/
       '''
       }
     }
