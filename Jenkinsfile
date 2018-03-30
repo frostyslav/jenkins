@@ -12,7 +12,7 @@ pipeline {
     stage('Build'){
       steps {
       sh '''
-      apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
+      sudo apt update && sudo apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
 
       mkdir $WORKDIR
       cd $WORKDIR
