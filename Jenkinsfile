@@ -45,7 +45,7 @@ pipeline {
                --add-module=/root/lua-nginx-module-0.10.11
 
       checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
-      mkdir /root/debfile
+      mkdir debfile
       cp nginx_${NGX_VER}-1_amd64.deb /root/debfile/
       '''
       }
