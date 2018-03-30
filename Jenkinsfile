@@ -1,10 +1,12 @@
 pipeline {
+  environment {
+     LUAJIT_VER = "2.0.5"
+  }
   agent any
 
   stages {
     stage('Build'){
       steps {
-        def LUAJIT_VER = "2.0.5"
         sh '''
         echo $LUAJIT_VER
         '''
