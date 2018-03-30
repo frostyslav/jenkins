@@ -11,13 +11,13 @@ pipeline {
     stage('Build'){
       agent {
         docker { image 'ubuntu:16.04'
-                 args '-v /tmp/:/root/deb'
+                 args '-u root:sudo -v /tmp/:/root/deb'
         }
       }
 
       steps {
       sh '''
-      apt update 
+      apt update
       apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
 
       wget http://luajit.org/download/LuaJIT-${LUAJIT_VER}.tar.gz
