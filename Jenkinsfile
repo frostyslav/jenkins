@@ -4,13 +4,13 @@ pipeline {
   stages {
     stage('Build'){
       steps {
+        def WORKDIR="/tmp/nginx-lua/"
+        def LUAJIT_VER="2.0.5"
+        def NDK_VER="0.3.0"
+        def NGX_VER="1.13.10"
+        def NGX_LUA_VER="0.10.11"
+        
         sh """
-        WORKDIR="/tmp/nginx-lua/"
-        LUAJIT_VER="2.0.5"
-        NDK_VER="0.3.0"
-        NGX_VER="1.13.10"
-        NGX_LUA_VER="0.10.11"
-
         apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
 
         mkdir $WORKDIR
