@@ -12,7 +12,7 @@ pipeline {
     stage('Build'){
       agent {
         docker { image 'ubuntu:16.04'
-                 args '-v /tmp/:$WORKDIR'
+                 args '-v /tmp/:$WORKDIR/deb'
         }
       }
 
@@ -49,7 +49,8 @@ pipeline {
                --add-module=${WORKDIR}/lua-nginx-module-0.10.11
 
       checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
-      #cp nginx_${NGX_VER}-1_amd64.deb /
+      mkdir $WORKDIR/deb
+      cp nginx_${NGX_VER}-1_amd64.deb $WORKDIR/deb/
       '''
       }
     }
