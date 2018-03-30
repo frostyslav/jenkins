@@ -1,6 +1,5 @@
 pipeline {
   environment {
-    WORKDIR="/tmp/nginx-lua/"
     LUAJIT_VER="2.0.5"
     NDK_VER="0.3.0"
     NGX_VER="1.13.10"
@@ -12,23 +11,20 @@ pipeline {
     stage('Build'){
       agent {
         docker { image 'ubuntu:16.04'
-                 args '-v /tmp/:$WORKDIR/deb'
+                 args '-v /tmp/:/root/deb'
         }
       }
 
       steps {
       sh '''
-      sudo apt update && sudo apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
-
-      mkdir $WORKDIR
-      cd $WORKDIR
+      apt update && apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
 
       wget http://luajit.org/download/LuaJIT-${LUAJIT_VER}.tar.gz
       tar xvf LuaJIT-${LUAJIT_VER}.tar.gz
       cd LuaJIT-${LUAJIT_VER}
       make
-      sudo make install
-      cd $WORKDIR
+      make install
+      cd ..
 
       wget https://github.com/simplresty/ngx_devel_kit/archive/v${NDK_VER}.tar.gz
       tar xvf v${NDK_VER}.tar.gz
@@ -45,12 +41,12 @@ pipeline {
 
       ./configure --prefix=/opt/nginx \
                --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
-               --add-module=${WORKDIR}/ngx_devel_kit-${NDK_VER} \
-               --add-module=${WORKDIR}/lua-nginx-module-0.10.11
+               --add-module=/root/ngx_devel_kit-${NDK_VER} \
+               --add-module=/root/lua-nginx-module-0.10.11
 
       checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
-      mkdir $WORKDIR/deb
-      cp nginx_${NGX_VER}-1_amd64.deb $WORKDIR/deb/
+      mkdir /root/deb
+      cp nginx_${NGX_VER}-1_amd64.deb /root/deb/
       '''
       }
     }
