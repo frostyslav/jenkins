@@ -24,11 +24,11 @@ pipeline {
       cd LuaJIT-${LUAJIT_VER}
       make
       make install
-      cd ..
-      echo $pwd
+      cd /root
+      $pwd
       wget https://github.com/simplresty/ngx_devel_kit/archive/v${NDK_VER}.tar.gz
       tar xvf v${NDK_VER}.tar.gz
-      ls -alt 
+      ls -alt  /root/ngx_devel_kit-0.3.0/config
       wget https://github.com/openresty/lua-nginx-module/archive/v${NGX_LUA_VER}.tar.gz
       tar xvf v${NGX_LUA_VER}.tar.gz
 
