@@ -17,7 +17,8 @@ pipeline {
 
       steps {
       sh '''
-      sudo apt update && sudo apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
+      apt update 
+      apt install wget make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
 
       wget http://luajit.org/download/LuaJIT-${LUAJIT_VER}.tar.gz
       tar xvf LuaJIT-${LUAJIT_VER}.tar.gz
