@@ -21,7 +21,7 @@ pipeline {
       tar xvf LuaJIT-${LUAJIT_VER}.tar.gz
       cd LuaJIT-${LUAJIT_VER}
       make
-      make install
+      sudo make install
       cd $WORKDIR
 
       wget https://github.com/simplresty/ngx_devel_kit/archive/v${NDK_VER}.tar.gz
