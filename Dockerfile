@@ -23,12 +23,10 @@ RUN tar xvf v${NGX_LUA_VER}.tar.gz
 
 # Compile nginx with required options and create deb file
 ADD http://nginx.org/download/nginx-${NGX_VER}.tar.gz ./
-RUN tar xvf nginx-${NGX_VER}.tar.gz
-
 ENV LUAJIT_LIB=/usr/local/lib \
     LUAJIT_INC=/usr/local/include/luajit-2.0/
-
-RUN cd /root/nginx-${NGX_VER} && \
+RUN tar xvf nginx-${NGX_VER}.tar.gz && \
+    cd nginx-${NGX_VER} && \
     ./configure --prefix=/opt/nginx \
                 --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
                 --add-module==/root/ngx_devel_kit-${NDK_VER} \
