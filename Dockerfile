@@ -10,20 +10,20 @@ RUN apt update
 RUN apt install -y make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
 
 # Install lua
-ADD http://luajit.org/download/LuaJIT-${LUAJIT_VER}.tar.gz
+ADD http://luajit.org/download/LuaJIT-${LUAJIT_VER}.tar.gz ./
 RUN tar xvf LuaJIT-${LUAJIT_VER}.tar.gz
 RUN cd LuaJIT-${LUAJIT_VER}
 RUN make && make install
 RUN cd /root
 
 # Download and untar ngx devel kit and lua-nginx-module
-ADD https://github.com/simplresty/ngx_devel_kit/archive/v${NDK_VER}.tar.gz
+ADD https://github.com/simplresty/ngx_devel_kit/archive/v${NDK_VER}.tar.gz ./
 RUN tar xvf v${NDK_VER}.tar.gz
-ADD https://github.com/openresty/lua-nginx-module/archive/v${NGX_LUA_VER}.tar.gz
+ADD https://github.com/openresty/lua-nginx-module/archive/v${NGX_LUA_VER}.tar.gz ./
 RUN tar xvf v${NGX_LUA_VER}.tar.gz
 
 # Compile nginx with required options and create deb file
-ADD http://nginx.org/download/nginx-${NGX_VER}.tar.gz
+ADD http://nginx.org/download/nginx-${NGX_VER}.tar.gz ./
 RUN tar xvf nginx-${NGX_VER}.tar.gz
 RUN cd nginx-${NGX_VER}
 
