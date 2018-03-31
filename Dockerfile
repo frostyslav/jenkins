@@ -17,20 +17,21 @@ RUN tar xvf LuaJIT-${LUAJIT_VER}.tar.gz && \
 
 # Download and untar ngx devel kit and lua-nginx-module
 ADD https://github.com/simplresty/ngx_devel_kit/archive/v${NDK_VER}.tar.gz ./
-RUN pwd && tar xvf v${NDK_VER}.tar.gz
+RUN tar xvf v${NDK_VER}.tar.gz
 ADD https://github.com/openresty/lua-nginx-module/archive/v${NGX_LUA_VER}.tar.gz ./
-RUN pwd && tar xvf v${NGX_LUA_VER}.tar.gz
+RUN tar xvf v${NGX_LUA_VER}.tar.gz
 
 # Compile nginx with required options and create deb file
 ADD http://nginx.org/download/nginx-${NGX_VER}.tar.gz ./
 ENV LUAJIT_LIB=/usr/local/lib \
     LUAJIT_INC=/usr/local/include/luajit-2.0/
 RUN tar xvf nginx-${NGX_VER}.tar.gz && \
+    ls -alt && \
     cd nginx-${NGX_VER} && \
     ./configure --prefix=/opt/nginx \
                 --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
-                --add-module==ngx_devel_kit-${NDK_VER} \
-                --add-dynamic-module==lua-nginx-module-0.10.11 \
+                --add-module==/ngx_devel_kit-${NDK_VER} \
+                --add-dynamic-module==/lua-nginx-module-0.10.11 \
     && checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
 
 # STAGE 2.
