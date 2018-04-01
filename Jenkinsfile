@@ -3,7 +3,7 @@ pipeline {
 
   stages {
     stage('Build'){
-    def image = docker.build('pzab/nginx-lua:1.0', '.')
+      def image = docker.build('pzab/nginx-lua:1.0', '.')
     }
 
   }
