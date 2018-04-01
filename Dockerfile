@@ -45,5 +45,5 @@ COPY --from=builder /nginx-${NGX_VER}/nginx_${NGX_VER}-1_amd64.deb /
 RUN dpkg -i nginx_${NGX_VER}-1_amd64.deb
 COPY nginx.conf /opt/nginx/conf/nginx.conf
 COPY index.html /opt/nginx/html/index.html
-CMD ["/opt/nginx/sbin/nginx"]
+CMD ["/opt/nginx/sbin/nginx", "-g", "daemon off;"]
 EXPOSE 80 80
