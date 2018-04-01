@@ -35,9 +35,12 @@ RUN tar xvf nginx-${NGX_VER}.tar.gz && \
     && checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
 
 # STAGE 2.
-#FROM bitnami/minideb:stretch as application
-FROM ubuntu:16.04 as application
+FROM bitnami/minideb:stretch as application
+#FROM ubuntu:16.04 as application
 ENV NGX_VER="1.13.10"
 COPY --from=builder /nginx-${NGX_VER}/nginx_${NGX_VER}-1_amd64.deb /
 RUN dpkg -i nginx_${NGX_VER}-1_amd64.deb
+COPY nginx.conf /opt/nginx/nginx.conf
+COPY index.html /opt/nginx/html/index.html
+CMD ["/opt/nginx/sbin/nginx"]
 EXPOSE 80 80
