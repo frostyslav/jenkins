@@ -3,7 +3,9 @@ pipeline {
 
   stages {
     stage('Build'){
-      def image = docker.build('pzab/nginx-lua:1.0', '.')
+      steps {
+        sh "docker build -t pzab/nginx-lua:1.0 ."
+      }
     }
 
   }
