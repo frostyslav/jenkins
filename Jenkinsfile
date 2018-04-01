@@ -1,14 +1,15 @@
 pipeline {
   agent any
+  environment {
+    dockerhub_account="coul"
+  }
 
   stages {
     stage('Build and Dockerize'){
       steps {
-        sh "docker build -t coul/nginx-lua:1.0 ."
+        sh "docker build -t ${dockerhub_account}/nginx-lua:1.0 ."
       }
     }
-
-
 
     stage('Push image to dockerhub'){
       steps {
@@ -20,7 +21,7 @@ pipeline {
           sh 'docker login -u $USERNAME -p $PASSWORD https://index.docker.io/v1/'}
 
         withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
-          sh "docker push coul/nginx-lua:1.0"
+          sh "docker push ${dockerhub_account}/nginx-lua:1.0"
         }
       }
     }
