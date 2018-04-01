@@ -10,7 +10,7 @@ pipeline {
 
     stage('Push image to dockerhub'){
       steps {
-        withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
+        docker.withRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
           sh "docker push coul/nginx-lua:1.0"
         }
       }
