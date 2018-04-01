@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  def docker_hub_account = 'coul'
 
   stages {
     stage('Build and Dockerize'){
@@ -11,8 +10,9 @@ pipeline {
 
     stage('Push image to dockerhub'){
       steps {
+        def docker_hub_account = 'coul'
         withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
-          sh "docker tag nginx-lua:1.0 ${docker_hub_account}/nginx-lua:1.0 && docker push ${docker_hub_account}/nginx-lua:1.0" 
+          sh "docker tag nginx-lua:1.0 ${docker_hub_account}/nginx-lua:1.0 && docker push ${docker_hub_account}/nginx-lua:1.0"
         }
       }
     }
