@@ -3,10 +3,7 @@ pipeline {
 
   stages {
     stage('Build'){
-      agent { dockerfile true }
-      steps {
-        sh 'echo "Success"'
-      }
+    def image = docker.build('pzab/nginx-lua:1.0', '.')
     }
 
   }
