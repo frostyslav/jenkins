@@ -17,9 +17,9 @@ pipeline {
         * - ref https://issues.jenkins-ci.org/browse/JENKINS-38018 */
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub-credentials',
         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-        sh 'docker login -u $USERNAME -p $PASSWORD https://index.docker.io/v1/'}
+          sh 'docker login -u $USERNAME -p $PASSWORD https://index.docker.io/v1/'}
 
-        docker.withRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
+        withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
           sh "docker push coul/nginx-lua:1.0"
         }
       }
