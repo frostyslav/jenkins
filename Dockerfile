@@ -37,11 +37,11 @@ RUN tar xvf nginx-${NGX_VER}.tar.gz && \
                 --add-dynamic-module=/lua-nginx-module-0.10.11 \
     && checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
 
-# STAGE 2.
+# STAGE 2. Dockerize
 FROM bitnami/minideb:stretch as application
-#FROM ubuntu:16.04 as application
 ENV NGX_VER="1.13.10"
 COPY --from=builder /nginx-${NGX_VER}/nginx_${NGX_VER}-1_amd64.deb /
+COPY --from=builder /usr/local/lib/libluajit-5.1.so.2 /usr/local/lib/libluajit-5.1.so.2
 RUN dpkg -i nginx_${NGX_VER}-1_amd64.deb
 COPY nginx.conf /opt/nginx/conf/nginx.conf
 COPY index.html /opt/nginx/html/index.html
