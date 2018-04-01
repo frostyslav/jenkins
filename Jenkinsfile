@@ -2,9 +2,16 @@ pipeline {
   agent any
 
   stages {
-    stage('Build'){
+    stage('Build and Dockerize'){
       steps {
-        sh "docker build -t pzab/nginx-lua:1.0 ."
+        sh "docker build -t nginx-lua:1.0 ."
+      }
+    }
+
+    stage('Push image to dockerhub'){
+      steps {
+        withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
+        sh "docker push coul/nginx-lua:1.0" 
       }
     }
 
