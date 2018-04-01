@@ -39,3 +39,4 @@ FROM bitnami/minideb:stretch as application
 ENV NGX_VER="1.13.10"
 COPY --from=builder /nginx-${NGX_VER}/nginx_${NGX_VER}-1_amd64.deb /
 RUN dpkg -i nginx_${NGX_VER}-1_amd64.deb
+EXPOSE 80 80
