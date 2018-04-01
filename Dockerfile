@@ -30,6 +30,9 @@ RUN tar xvf nginx-${NGX_VER}.tar.gz && \
     cd nginx-${NGX_VER} && \
     ./configure --prefix=/opt/nginx \
                 --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
+                --error-log-path=/var/log/nginx_error.log \
+                --http-log-path=/var/log/nginx_access.log \
+                --pid-path=/var/run/nginx.pid \
                 --add-module=/ngx_devel_kit-${NDK_VER} \
                 --add-dynamic-module=/lua-nginx-module-0.10.11 \
     && checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
