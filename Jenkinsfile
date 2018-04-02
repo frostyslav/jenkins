@@ -2,13 +2,13 @@ pipeline {
   agent any
   environment {
     dockerhub_account="coul"
-    ec2_instance_name="nginx-lua"
+    app_name="nginx-lua"
   }
 
   stages {
     stage('Build and Dockerize'){
       steps {
-        sh "docker build -t ${dockerhub_account}/nginx-lua:1.0 ."
+        sh "docker build -t ${dockerhub_account}/$app_name:$BUILD_NUMBER ."
       }
     }
 
@@ -22,7 +22,7 @@ pipeline {
           sh 'docker login -u $USERNAME -p $PASSWORD https://index.docker.io/v1/'}
 
         withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://registry.hub.docker.com']) {
-          sh "docker push ${dockerhub_account}/nginx-lua:1.0"
+          sh "docker push ${dockerhub_account}/$app_name:$BUILD_NUMBER"
         }
       }
     }
@@ -42,10 +42,10 @@ pipeline {
              --amazonec2-ssh-user ubuntu \
              --amazonec2-instance-type "t2.micro" \
              --amazonec2-open-port 80 \
-             ${ec2_instance_name}
+             $app_name:$BUILD_NUMBER
 
              eval $(docker-machine env ${ec2_instance_name})
-             docker run -d -p 80:80 ${dockerhub_account}/nginx-lua:1.0
+             docker run -d -p 80:80 ${dockerhub_account}/$app_name:$BUILD_NUMBER
           '''
           }
       }
