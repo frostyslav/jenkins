@@ -26,5 +26,25 @@ pipeline {
       }
     }
 
+    stage('Deploy'){
+      steps {
+      withCredentials([[
+          $class: 'AmazonWebServicesCredentialsBinding',
+          credentialsId: 'aws-creds',
+          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+      ]]) {
+          sh ''' docker-machine create --driver amazonec2 \
+             --amazonec2-region eu-west-2 \
+             --amazonec2-instance-type "t2.micro" \
+             --amazonec2-open-port 80 \
+             aws-test2"
+          '''
+          }
+            
+      }
+
+
+    }
   }
 }
