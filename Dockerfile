@@ -34,7 +34,7 @@ RUN tar xvf nginx-${NGX_VER}.tar.gz && \
                 --http-log-path=/var/log/nginx_access.log \
                 --pid-path=/var/run/nginx.pid \
                 --add-module=/ngx_devel_kit-${NDK_VER} \
-                --add-dynamic-module=/lua-nginx-module-0.10.11 \
+                --add-dynamic-module=/lua-nginx-module-${NGX_LUA_VER} \
     && checkinstall --install=no -D -y --maintainer=pzab --pkgversion=$NGX_VER --pkgname=nginx
 
 # STAGE 2. Dockerize
