@@ -1,6 +1,6 @@
 # STAGE 1. Build
 FROM ubuntu:16.04 as builder
-ENV LUAJIT_VER="2.0.5" \
+ENV LUAJIT_VER="LuaJIT-2.0.5" \
     NDK_VER="0.3.0" \
     NGX_VER="1.13.10" \
     NGX_LUA_VER="0.10.11"
@@ -10,9 +10,9 @@ RUN apt update && \
     apt install -y make build-essential libpcre3-dev zlibc zlib1g-dev checkinstall
 
 # Install lua
-ADD http://luajit.org/download/LuaJIT-${LUAJIT_VER}.tar.gz ./
-RUN tar xvf LuaJIT-${LUAJIT_VER}.tar.gz && \
-    cd LuaJIT-${LUAJIT_VER} && \
+ADD http://luajit.org/download/${LUAJIT_VER}.tar.gz ./
+RUN tar xvf ${LUAJIT_VER}.tar.gz && \
+    cd ${LUAJIT_VER} && \
     make && make install
 
 # Download and untar ngx devel kit and lua-nginx-module
