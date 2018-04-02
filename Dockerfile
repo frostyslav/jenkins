@@ -40,7 +40,7 @@ RUN tar xvf nginx-${NGX_VER}.tar.gz && \
 # STAGE 2. Dockerize
 FROM bitnami/minideb:stretch as application
 ENV NGX_VER="1.13.10"
-COPY --from=builder /nginx-${NGX_VER}/nginx_${NGX_VER}-1_amd64.deb /nginx-${NGX_VER}/nginx_${NGX_VER}_amd64.deb
+COPY --from=builder /nginx-${NGX_VER}/nginx_${NGX_VER}-1_amd64.deb /nginx_${NGX_VER}_amd64.deb
 COPY --from=builder /usr/local/lib/libluajit-5.1.so.2 /usr/local/lib/libluajit-5.1.so.2
 RUN dpkg -i nginx_${NGX_VER}_amd64.deb
 COPY nginx.conf /opt/nginx/conf/nginx.conf
