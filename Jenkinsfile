@@ -42,9 +42,9 @@ pipeline {
              --amazonec2-ssh-user ubuntu \
              --amazonec2-instance-type "t2.micro" \
              --amazonec2-open-port 80 \
-             $app_name-$BUILD_NUMBER
+             $app_name
 
-             eval $(docker-machine env ${ec2_instance_name})
+             eval $(docker-machine env $app_name)
              docker run -d -p 80${BUILD_NUMBER}:80 ${dockerhub_account}/$app_name:$BUILD_NUMBER
           '''
           }
