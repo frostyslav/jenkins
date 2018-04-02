@@ -39,10 +39,11 @@ pipeline {
              --amazonec2-secret-key ${AWS_SECRET_ACCESS_KEY} \
              --amazonec2-region eu-west-2 \
              --amazonec2-ami ami-dff017b8 \
-             --amazonec2-device-name=xvdb \
+             --amazonec2-keypair-name jenkins_key \
+             --amazonec2-ssh-user jenkins \         
              --amazonec2-instance-type "t2.micro" \
              --amazonec2-open-port 80 \
-             aws-test7
+             aws-test9
 
              docker run -d ${dockerhub_account}/nginx-lua:1.0
           '''
