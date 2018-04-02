@@ -45,7 +45,7 @@ pipeline {
              $app_name-$BUILD_NUMBER
 
              eval $(docker-machine env ${ec2_instance_name})
-             docker run -d -p 80:80 ${dockerhub_account}/$app_name:$BUILD_NUMBER
+             docker run -d -p 80${BUILD_NUMBER}:80 ${dockerhub_account}/$app_name:$BUILD_NUMBER
           '''
           }
       }

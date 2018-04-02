@@ -45,5 +45,5 @@ COPY --from=builder /usr/local/lib/libluajit-5.1.so.2 /usr/local/lib/libluajit-5
 RUN dpkg -i nginx_${NGX_VER}_amd64.deb
 COPY nginx.conf /opt/nginx/conf/nginx.conf
 COPY index.html /opt/nginx/html/index.html
-EXPOSE 80${BUILD_NUMBER} 80
+EXPOSE 80 80
 CMD ["/opt/nginx/sbin/nginx", "-g", "daemon off;"]
