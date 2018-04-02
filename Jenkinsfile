@@ -40,8 +40,6 @@ pipeline {
              --amazonec2-secret-key ${AWS_SECRET_ACCESS_KEY} \
              --amazonec2-region eu-west-2 \
              --amazonec2-ssh-user ubuntu \
-             --amazonec2-keypair-name jenkins_key \
-             --amazonec2-ssh-keypath "/var/lib/jenkins/.ssh/id_rsa" \
              --amazonec2-instance-type "t2.micro" \
              --amazonec2-open-port 80 \
              ${ec2_instance_name}
@@ -50,10 +48,7 @@ pipeline {
              docker run -d -p 80:80 ${dockerhub_account}/nginx-lua:1.0
           '''
           }
-
       }
-
-
     }
   }
 }
