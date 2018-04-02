@@ -43,6 +43,7 @@ pipeline {
              --amazonec2-open-port 80 \
              test5
 
+             docker-machine env test5
              docker run -d ${dockerhub_account}/nginx-lua:1.0
           '''
           }
