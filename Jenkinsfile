@@ -40,7 +40,7 @@ pipeline {
              --amazonec2-region eu-west-2 \
              --amazonec2-ami ami-f4f21593 \
              --amazonec2-keypair-name jenkins_key \
-             --amazonec2-ssh-user jenkins \
+             --amazonec2-ssh-user ubuntu \
              --amazonec2-ssh-keypath "/var/lib/jenkins/.ssh/id_rsa" \
              --amazonec2-instance-type "t2.micro" \
              --amazonec2-open-port 80 \
