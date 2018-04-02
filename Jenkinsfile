@@ -38,6 +38,7 @@ pipeline {
              --amazonec2-access-key ${AWS_ACCESS_KEY_ID} \
              --amazonec2-secret-key ${AWS_SECRET_ACCESS_KEY} \
              --amazonec2-region eu-west-2 \
+             --amazonec2-ami ami-6d263d09 \
              --amazonec2-instance-type "t2.micro" \
              --amazonec2-open-port 80 \
              aws-test2
